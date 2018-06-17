@@ -5,56 +5,74 @@
 <link rel="stylesheet" type="text/css" href="css/json2table.css">
 <link rel="stylesheet" type="text/css" href="lib/css/bootstrap.min.css">
 
-<script src="js/json2table.js"></script>
 <script src="lib/js/bootstrap.min.js"></script>
 <script src="lib/js/jquery.min.js"></script>
+<script src="js/json2table.js"></script>
 </head>
-<body onload="reset_vars()">
 
-  <div>
-      <form>
-          <input type="file"   name="datafile" size="40" id="JSONfile"  onchange="initTextArea()">
-      </form>
-  </div>
-
-  <div>
-        JSON fragment:<br>
-        <textarea id="JsonTextarea" rows="15" cols="80" wrap="off"> </textarea>
-  </div>
-  <div class="col_menu">
-      <div class="column col_1_3">
+<body onload="init_func()">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
           <form>
-              <div class="form-group">
-                   <label for="input_transaction_id">transaction_id:</label>
-                   <input type="text" id="input_transaction_id" readonly />
-              </div>
-              <div class="form-group">
-                   <label for="input_accepted">transaction_status (accepted):</label>
-                   <input type="text" id="input_accepted" readonly />
-              </div>
-              <div class="form-group">
-                   <label for="input_rejected">transaction_status (rejected):</label>
-                   <input type="text" id="input_rejected" readonly />
-              </div>
+              <input type="file"  size="40" id="JSONfile" onchange="initTextArea()">
           </form>
+          <div>
+                JSON fragment:<br>
+                <textarea id="JsonTextarea" rows="15" cols="80" wrap="off"> </textarea>
+          </div>
+        </div>
       </div>
-      <div class="column col_2_3">
+
+      <div class="row ">
+        <div class="col-md-2">
+            <table class="table">
+               <thead> </thead>
+               <tbody>
+                 <tr>
+                    <td>transaction_id</td>
+                    <td class="info" id="td_transaction_id"></td>
+                 </tr>
+                 <tr>
+                    <td>transaction_status (accepted)</td>
+                    <td class="success" id="td_accepted"></td>
+                 </tr>
+                 <tr>
+                    <td>transaction status (rejected)</td>
+                    <td class="danger" id="td_rejected"></td>
+                 </tr>
+               </tbody>
+             </table>
+        </div>
+        <div class="col-md-7">
+              <br>
+              <br>
               <form>
-                  <input type="button"  class="convert_button" value="CONVERT" id="convet"  onclick="loadJSON()" > <br>
+                  <input type="button" class="btn btn-success col-md-offset-6" value="CONVERT" id="btn_convert"  onclick="loadJSON()">
               </form>
-      </div>
-      <div class="column col_3_3">
-              <br>
-              <br>
-              <br>
-              <input type="button" class="export_button_direct" value="download csv" id="export_direct" onclick="export_csv(1);" >
-              <input type="button" class="export_button_open"   value="export csv"   id="export_open"   onclick="export_csv(0);" >
-      </div>
-  </div>
+        </div>
 
-  <table  class="json_table" id="outTable">
-  </table>
+        <div class="col-md-3">
+            <form class="form-inline">
+                <div class="form-group">
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <input type="button" class="btn btn-default btn-xs" value="download csv" id="export_direct" onclick="export_csv(1);">
+                  <input type="button" class="btn btn-default btn-xs" value="export csv"   id="export_open"   onclick="export_csv(0);">
+                </div>
+            </form>
+        </div>
+      </div>
 
+      <div class="row">
+        <div class="col-md-12">
+              <table  class="table table-striped table-bordered table-condensed" id="outTable">
+              </table>
+        </div>
+      </div>
+    </div>
 </body>
 </html>
 

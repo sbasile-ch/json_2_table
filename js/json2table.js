@@ -4,6 +4,21 @@
     var statistics    = {transaction_id:0, accepted:0, rejected:0};
     var col_name_sort;
     var out_table_id = 'outTable';
+
+//______________________________________________________
+function init_func () {
+
+    reset_vars ();
+}
+
+//______________________________________________________
+function reset_vars () {
+
+    empty_table ();
+    list_of_headers = {};
+    empty_statistics ();
+}
+
 //______________________________________________________
 function initTextArea () {
     var JSONfile   = document.getElementById("JSONfile").files[0];
@@ -28,8 +43,8 @@ function get_list_of_key_names () {
 function print_statistics () {
 
     for (var k in statistics ) {
-        var field  = document.getElementById('input_' + k);
-        field.value = statistics[k];
+        var cell  = document.getElementById('td_' + k);
+        cell.innerHTML = statistics[k];
     }
 }
 //______________________________________________________
@@ -51,12 +66,12 @@ function check_data (key, val) {
             }
             else if ( val == 'rejected' ) {
                 statistics.rejected ++;
-                check.css_class = 'content_error';
+                check.css_class = 'danger';
             }
         }
 	}
     else if (val) {
-        check.css_class = 'content_error';
+        check.css_class = 'danger';
     }
     return check;
 }
@@ -80,51 +95,6 @@ function empty_statistics () {
     print_statistics ();
 }
 
-//______________________________________________________
-function reset_vars () {
-
-    //reset Table
-    empty_table ();
-
-    //reset names for columns
-    list_of_headers = {};
-
-    empty_statistics ();
-}
-
-//______________________________________________________
-//function print_table () {
-//
-//    empty_table ();
-//    empty_statistics ();
-//
-//    var table  = document.getElementById(out_table_id);
-//    var row    = table.insertRow(0);
-//    // write Table header
-//    for (var n in list_of_headers) {
-//        var cell = document.createElement("TH");
-//        cell.innerHTML = n;
-//        cell.id        = n;
-//        cell.onclick   = event_sort;
-//
-//        row.appendChild(cell);
-//    }
-//    // write all the rows
-//    for (var i = 0; i < json_array.length; i++) {
-//        row = table.insertRow(i+1);
-//        var c = 0;
-//        for (var n in list_of_headers) {
-//              var val = json_array [i][n];
-//              var check = check_data (n, val);
-//              if (! val) { val = ''; }
-//              var cell = row.insertCell(c++);
-//              cell.innerHTML = val;
-//              if ( check.css_class ) { cell.className += " " + check.css_class; }
-//        }
-//    }
-//    print_statistics ();
-//}
-//
 //______________________________________________________
 function print_table () {
 
@@ -194,10 +164,13 @@ function loadJSON () {
 
     try {
         var json_text = document.getElementById("JsonTextarea").value;
-        reset_vars ();
-        json_array = JSON.parse (json_text).items;
-        get_list_of_key_names ();
-        print_table ();
+        if (/[{\[]/.test(json_text)) {
+            reset_vars ();
+            json_array = JSON.parse (json_text).items;
+            get_list_of_key_names ();
+            print_table ();
+        }
+        else { alert ("First, load a JSON content."); }
     }
     catch(err) {
             alert (err.message);
@@ -221,7 +194,7 @@ function export_csv (try_csv_direct) {
 	}
 
     if (try_csv_direct) {
-        var file_name = prompt("Please enter file name", "export.csv");
+        var file_name = prompt("Please enter the file name.", "export.csv");
         var csv_file  = new Blob(csv, {type: "text/csv"});
 
         if (window.navigator.msSaveOrOpenBlob) // IE10+
@@ -241,7 +214,7 @@ function export_csv (try_csv_direct) {
         }
     }
     else {
-        var new_csv_window = window.open("", "_blank", "width=200,height=200");
+        var new_csv_window = window.open("", "_blank", "width=600,height=500");
         new_csv_window.document.write(csv.toString());
     }
 }
