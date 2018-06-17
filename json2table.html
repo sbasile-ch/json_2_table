@@ -5,17 +5,19 @@
 <link rel="stylesheet" type="text/css" href="css/json2table.css">
 <link rel="stylesheet" type="text/css" href="lib/css/bootstrap.min.css">
 
-<script src="lib/js/bootstrap.min.js"></script>
 <script src="lib/js/jquery.min.js"></script>
+<script src="lib/js/bootstrap.min.js"></script>
 <script src="js/json2table.js"></script>
 </head>
 
-<body onload="init_func()">
+<body onload="init_func">
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12">
-          <form>
-              <input type="file"  size="40" id="JSONfile" onchange="initTextArea()">
+          <form class="form-inline">
+              <span class="btn btn-primary btn-file btn-xs">
+                  <input type="file"  size="40" id="JSONfile" onchange="initTextArea()">
+              </span>
           </form>
           <div>
                 JSON fragment:<br>
@@ -24,7 +26,7 @@
         </div>
       </div>
 
-      <div class="row ">
+      <div class="row">
         <div class="col-md-2">
             <table class="table">
                <thead> </thead>
@@ -45,11 +47,11 @@
              </table>
         </div>
         <div class="col-md-7">
-              <br>
-              <br>
-              <form>
-                  <input type="button" class="btn btn-success col-md-offset-6" value="CONVERT" id="btn_convert"  onclick="loadJSON()">
-              </form>
+             <br>
+             <br>
+             <form>
+                 <input type="button" class="btn btn-success col-md-offset-6" value="CONVERT" id="btn_convert"  onclick="loadJSON()">
+             </form>
         </div>
 
         <div class="col-md-3">
@@ -59,8 +61,8 @@
                   <br>
                   <br>
                   <br>
-                  <input type="button" class="btn btn-default btn-xs" value="download csv" id="export_direct" onclick="export_csv(1);">
-                  <input type="button" class="btn btn-default btn-xs" value="export csv"   id="export_open"   onclick="export_csv(0);">
+                  <input type="button" class="btn btn-warning btn-xs" value="see csv"      id="export_open"   onclick="export_csv(0);">
+                  <input type="button" class="btn btn-warning btn-xs" value="try save csv" id="export_direct" onclick="export_csv(1);">
                 </div>
             </form>
         </div>
