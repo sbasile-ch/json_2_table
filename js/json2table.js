@@ -178,44 +178,47 @@ function loadJSON () {
 }
 //______________________________________________________
 function export_csv (try_csv_direct) {
-	var csv = [];
-    var table  = document.getElementById(out_table_id);
+	var csv   = [];
+    var table = document.getElementById(out_table_id);
+    var ROW   = table.rows.length;
 
-    for (var r = 0; r < table.rows.length; r++) {
+    if (ROW) {
+        for (var r = 0; r < ROW; r++) {
 
-        var cells = table.rows[r].cells;
-        var row_text = '';
-        for (var c = 0; c < cells.length; c++) {
-            var val = cells[c].innerHTML;
-            val.replace(/,/g, '(removed comma)');
-            row_text += (c ? ',' : '') + val;
-		}
-		csv.push(row_text + '\n');
-	}
-
-    if (try_csv_direct) {
-        var file_name = prompt("Please enter the file name.", "export.csv");
-        var csv_file  = new Blob(csv, {type: "text/csv"});
-
-        if (window.navigator.msSaveOrOpenBlob) // IE10+
-            window.navigator.msSaveOrOpenBlob(file, file_name);
-        else { // others
-            var a   = document.createElement("a"),
-                url = URL.createObjectURL(csv_file);
-            a.style.display = "none";
-            a.href = url;
-            a.download = file_name;
-            document.body.appendChild(a);
-            a.click();
-            setTimeout(function() {
-                document.body.removeChild(a);
-                window.URL.revokeObjectURL(url);
-                }, 0);
+            var cells = table.rows[r].cells;
+            var row_text = '';
+            for (var c = 0; c < cells.length; c++) {
+                var val = cells[c].innerHTML;
+                val.replace(/,/g, '(removed comma)');
+                row_text += (c ? ',' : '') + val;
+            }
+            csv.push(row_text + '\n');
         }
-    }
-    else {
-        var new_csv_window = window.open("", "_blank", "width=600,height=500");
-        new_csv_window.document.write(csv.toString());
+
+        if (try_csv_direct) {
+            var file_name = prompt("Please enter the file name.", "export.csv");
+            var csv_file  = new Blob(csv, {type: "text/csv"});
+
+            if (window.navigator.msSaveOrOpenBlob) // IE10+
+                window.navigator.msSaveOrOpenBlob(file, file_name);
+            else { // others
+                var a   = document.createElement("a"),
+                    url = URL.createObjectURL(csv_file);
+                a.style.display = "none";
+                a.href = url;
+                a.download = file_name;
+                document.body.appendChild(a);
+                a.click();
+                setTimeout(function() {
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+                    }, 0);
+            }
+        }
+        else {
+            var new_csv_window = window.open("", "_blank", "width=600,height=500");
+            new_csv_window.document.write(csv.toString());
+        }
     }
 }
 //______________________________________________________
