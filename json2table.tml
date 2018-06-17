@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>JSON 2 Table</title>
+<link rel="stylesheet" type="text/css" href="css/json2table.css">
+<link rel="stylesheet" type="text/css" href="lib/css/bootstrap.min.css">
+
+<script src="js/json2table.js"></script>
+<script src="lib/js/bootstrap.min.js"></script>
+<script src="lib/js/jquery.min.js"></script>
+</head>
+<body onload="reset_vars()">
+
+  <div>
+      <form>
+          <input type="file"   name="datafile" size="40" id="JSONfile"  onchange="initTextArea()">
+      </form>
+  </div>
+
+  <div>
+        JSON fragment:<br>
+        <textarea id="JsonTextarea" rows="15" cols="80" wrap="off"> </textarea>
+  </div>
+  <div class="col_menu">
+      <div class="column col_1_3">
+          <form>
+              <div class="form-group">
+                   <label for="input_transaction_id">transaction_id:</label>
+                   <input type="text" id="input_transaction_id" readonly />
+              </div>
+              <div class="form-group">
+                   <label for="input_accepted">transaction_status (accepted):</label>
+                   <input type="text" id="input_accepted" readonly />
+              </div>
+              <div class="form-group">
+                   <label for="input_rejected">transaction_status (rejected):</label>
+                   <input type="text" id="input_rejected" readonly />
+              </div>
+          </form>
+      </div>
+      <div class="column col_2_3">
+              <form>
+                  <input type="button"  class="convert_button" value="CONVERT" id="convet"  onclick="loadJSON()" > <br>
+              </form>
+      </div>
+      <div class="column col_3_3">
+              <br>
+              <br>
+              <br>
+              <input type="button" class="export_button_direct" value="download csv" id="export_direct" onclick="export_csv(1);" >
+              <input type="button" class="export_button_open"   value="export csv"   id="export_open"   onclick="export_csv(0);" >
+      </div>
+  </div>
+
+  <table  class="json_table" id="outTable">
+  </table>
+
+</body>
+</html>
+
