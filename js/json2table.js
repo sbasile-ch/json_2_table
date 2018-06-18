@@ -52,9 +52,13 @@ function check_data (key, val) {
 
     var check = {};
 
+    if (! val) { val = ''; }
+
+    check.val = val;
+
     key = key ? key.toLowerCase() : '';
 
-    if ( key == 'transaction_id' ) {
+    if ( val && key == 'transaction_id' ) {
         statistics.transaction_id ++;
     }
 
@@ -70,8 +74,9 @@ function check_data (key, val) {
             }
         }
 	}
-    else if (val) {
+    else if (val) {   // received something not a string --> report an error (and show its content)
         check.css_class = 'danger';
+        check.val = JSON.stringify(val);
     }
     return check;
 }
@@ -129,9 +134,8 @@ function print_table () {
         for (var n in list_of_headers) {
               var val = json_array [i][n];
               var check = check_data (n, val);
-              if (! val) { val = ''; }
               cell = row.insertCell(c++);
-              cell.innerHTML = val;
+              cell.innerHTML = check.val;
               if ( check.css_class ) { cell.className += " " + check.css_class; }
         }
         tbody.appendChild(row);
