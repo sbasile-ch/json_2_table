@@ -193,7 +193,7 @@ function export_csv (try_csv_direct) {
             var row_text = '';
             for (var c = 0; c < cells.length; c++) {
                 var val = cells[c].innerHTML;
-                val.replace(/,/g, '(removed comma)');
+                val = val.replace(/,/g, '(removed comma)');
                 row_text += (c ? ',' : '') + val;
             }
             csv.push(row_text + '\n');
