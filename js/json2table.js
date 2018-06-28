@@ -1,5 +1,5 @@
 //______________________________________________________
-	var json_array;
+    var json_array;
     var list_of_headers = {};
     var statistics    = {transaction_id:0, accepted:0, rejected:0};
     var col_name_sort;
@@ -73,7 +73,7 @@ function check_data (key, val) {
                 check.css_class = 'danger';
             }
         }
-	}
+    }
     else if (val) {   // received something not a string --> report an error (and show its content)
         check.css_class = 'danger';
         check.val = JSON.stringify(val);
@@ -182,7 +182,7 @@ function loadJSON () {
 }
 //______________________________________________________
 function export_csv (try_csv_direct) {
-	var csv   = [];
+    var csv   = [];
     var table = document.getElementById(out_table_id);
     var ROW   = table.rows.length;
 
