@@ -221,7 +221,12 @@ function export_csv (try_csv_direct) {
         }
         else {
             var new_csv_window = window.open("", "_blank", "width=600,height=500");
+            new_csv_window.document.open();
+            new_csv_window.document.write('<html><head><title>CSV</title><link rel="stylesheet" type="text/css" href="css/json2table.css"></head><body><div class="csv-out">');
             new_csv_window.document.write(csv.toString());
+            new_csv_window.document.write('</div></body></html>');
+            new_csv_window.document.close();
+            new_csv_window.focus();
         }
     }
 }

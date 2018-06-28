@@ -3,6 +3,11 @@
     font-family: sans-serif;
     font-size: 11px;
 }
+.csv-out {
+    font-family: inherit;
+    font-size: 7px;
+}
+/*____________ table  ________________ */
 th {
     cursor: pointer;
     background-color: #9AFF9A;   /* Green */
